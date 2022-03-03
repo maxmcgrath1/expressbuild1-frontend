@@ -44,7 +44,7 @@ function Main(props) {
         // make delete request to create people
         await fetch(URL + id, {
             method: "delete",
-            })
+        })
         // update list of people
         getPeople()
     }
