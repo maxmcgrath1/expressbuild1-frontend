@@ -1,11 +1,9 @@
 import { useState } from "react"
-
 function Show(props) {
     const id = props.match.params.id
     const people = props.people
     const person = people.find(p => p._id === id)
 
-    // state for form
     const [editForm, setEditForm] = useState(person)
 
     // handleChange function for form
@@ -13,11 +11,14 @@ function Show(props) {
         setEditForm({ ...editForm, [event.target.name]: event.target.value })
     }
 
-    // handlesubmit for form
     const handleSubmit = event => {
         event.preventDefault()
-        props.updatePeople(editForm, person._id)
-        // redirect people back to index
+        props.updatePeople(editForm)
+        props.history.push("/")
+    }
+
+    const removePerson = () => {
+        props.deletePeople(person._id)
         props.history.push("/")
     }
 
@@ -50,8 +51,11 @@ function Show(props) {
                 />
                 <input type="submit" value="Update Person" />
             </form>
+            <button id="delete" onClick={removePerson}>
+                DELETE PERSON
+            </button>
         </div>
-    ) 
+    )
 }
 
 export default Show
